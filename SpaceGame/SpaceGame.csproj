@@ -48,6 +48,7 @@
     <Compile Include="GameManager.cs" />
     <Compile Include="InputManager.cs" />
     <Compile Include="Level.cs" />
+    <Compile Include="MainMenu.cs" />
     <Compile Include="Monster.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

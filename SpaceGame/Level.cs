@@ -29,10 +29,12 @@ namespace SpaceGame
         float monsterTimer = 0;
 
         ContentManager contentManager;
+        InputManager inputManager;
 
-        public Level(ContentManager cm)
+        public Level(ContentManager cm, InputManager im)
         {
             contentManager = cm;
+            inputManager = im;
 
             font = cm.Load<SpriteFont>("scorefont");
 
@@ -41,7 +43,7 @@ namespace SpaceGame
 
         void reset()
         {
-            ship = new Ship(contentManager);
+            ship = new Ship(contentManager, inputManager);
             monsters = new List<Monster>();
             bolts = new List<Bolt>();
             reduced = false;
@@ -100,7 +102,7 @@ namespace SpaceGame
             if (GamePad.GetState(0).Buttons.Back == ButtonState.Pressed)
                 reset();
 
-            if (GamePad.GetState(0).Buttons.Start == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
+            if (inputManager.InputPause())
                 currentState = States.Paused;
 
             if (score <= 0)
@@ -235,13 +237,13 @@ namespace SpaceGame
 
         void updatePaused()
         {
-            if (GamePad.GetState(0).Buttons.A == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Space))
+            if (inputManager.InputPause())
                 currentState = States.Playing;
         }
 
         void updateGameOver()
         {
-            if (GamePad.GetState(0).Buttons.B == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Enter))
+            if (inputManager.InputAccept())
                 reset();
         }
 

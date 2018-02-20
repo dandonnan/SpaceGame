@@ -24,9 +24,13 @@ namespace SpaceGame
 
         int frame = 0;
 
-        public Ship(ContentManager cm)
+        InputManager inputManager;
+
+        public Ship(ContentManager cm, InputManager im)
         {
             texture = cm.Load<Texture2D>("ship");
+
+            inputManager = im;
 
             position = new Vector2(10, 310);
 
@@ -67,8 +71,7 @@ namespace SpaceGame
 
             if (canMove)
             {
-                if (GamePad.GetState(0).Buttons.A == ButtonState.Pressed || GamePad.GetState(0).Triggers.Right > 0.5f
-                    || Keyboard.GetState().IsKeyDown(Keys.Space))
+                if (inputManager.InputFire())
                 {
                     if (cooldown <= 0 && !firing)
                     {
@@ -77,8 +80,7 @@ namespace SpaceGame
                     }
                 }
 
-                if (GamePad.GetState(0).ThumbSticks.Left.Y > 0.5f || GamePad.GetState(0).DPad.Up == ButtonState.Pressed
-                    || Keyboard.GetState().IsKeyDown(Keys.Up) || Keyboard.GetState().IsKeyDown(Keys.W))
+                if (inputManager.InputUp())
                 {
                     frame = 2;
 
@@ -86,8 +88,7 @@ namespace SpaceGame
                         position.Y -= 3;
                 }
 
-                if (GamePad.GetState(0).ThumbSticks.Left.Y < -0.5f || GamePad.GetState(0).DPad.Down == ButtonState.Pressed
-                    || Keyboard.GetState().IsKeyDown(Keys.Down) || Keyboard.GetState().IsKeyDown(Keys.S))
+                if (inputManager.InputDown())
                 {
                     frame = 1;
 
