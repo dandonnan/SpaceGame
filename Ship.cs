@@ -41,6 +41,8 @@ namespace SpaceGame
         public Vector2 GetPosition() { return position; }
         public Rectangle GetCollision() { return collision; }
 
+        public int GetFrame() { return frame; }
+
         public void LockControls(bool l) { canMove = !l; }
         public bool ControlsLocked() { return !canMove; }
 
@@ -65,7 +67,8 @@ namespace SpaceGame
 
             if (canMove)
             {
-                if (GamePad.GetState(0).Buttons.A == ButtonState.Pressed || GamePad.GetState(0).Triggers.Right > 0.5f)
+                if (GamePad.GetState(0).Buttons.A == ButtonState.Pressed || GamePad.GetState(0).Triggers.Right > 0.5f
+                    || Keyboard.GetState().IsKeyDown(Keys.Space))
                 {
                     if (cooldown <= 0 && !firing)
                     {
@@ -74,7 +77,8 @@ namespace SpaceGame
                     }
                 }
 
-                if (GamePad.GetState(0).ThumbSticks.Left.Y > 0.5f || GamePad.GetState(0).DPad.Up == ButtonState.Pressed)
+                if (GamePad.GetState(0).ThumbSticks.Left.Y > 0.5f || GamePad.GetState(0).DPad.Up == ButtonState.Pressed
+                    || Keyboard.GetState().IsKeyDown(Keys.Up) || Keyboard.GetState().IsKeyDown(Keys.W))
                 {
                     frame = 2;
 
@@ -82,7 +86,8 @@ namespace SpaceGame
                         position.Y -= 3;
                 }
 
-                if (GamePad.GetState(0).ThumbSticks.Left.Y < -0.5f || GamePad.GetState(0).DPad.Down == ButtonState.Pressed)
+                if (GamePad.GetState(0).ThumbSticks.Left.Y < -0.5f || GamePad.GetState(0).DPad.Down == ButtonState.Pressed
+                    || Keyboard.GetState().IsKeyDown(Keys.Down) || Keyboard.GetState().IsKeyDown(Keys.S))
                 {
                     frame = 1;
 

@@ -12,6 +12,9 @@ namespace SpaceGame
 {
     public class Level
     {
+        enum States { Playing, Paused, GameOver, Leaderboard }
+        States currentState;
+
         Ship ship;
         List<Monster> monsters;
         List<Bolt> bolts;
@@ -20,6 +23,8 @@ namespace SpaceGame
         float currentScore;
         bool reduced;
         SpriteFont font;
+
+        bool eaten;
 
         float monsterTimer = 0;
 
@@ -40,19 +45,75 @@ namespace SpaceGame
             monsters = new List<Monster>();
             bolts = new List<Bolt>();
             reduced = false;
+            eaten = false;
+            score = 0;
+            currentScore = 0;
+            currentState = States.Playing;
         }
 
         public void Update()
         {
+            switch (currentState)
+            {
+                case States.Playing:
+                    updatePlaying();
+                    break;
+
+                case States.Paused:
+                    updatePaused();
+                    break;
+
+                case States.GameOver:
+                    updateGameOver();
+                    break;
+
+                case States.Leaderboard:
+                    updateLeaderboard();
+                    break;
+            }
+        }
+
+        public void Draw(SpriteBatch sb)
+        {
+            switch (currentState)
+            {
+                case States.Playing:
+                    drawPlaying(sb);
+                    break;
+
+                case States.Paused:
+                    drawPaused(sb);
+                    break;
+
+                case States.GameOver:
+                    drawGameOver(sb);
+                    break;
+
+                case States.Leaderboard:
+                    drawLeaderboard(sb);
+                    break;
+            }
+        }
+
+        void updatePlaying()
+        {
             if (GamePad.GetState(0).Buttons.Back == ButtonState.Pressed)
                 reset();
+
+            if (GamePad.GetState(0).Buttons.Start == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
+                currentState = States.Paused;
 
             if (score <= 0)
             {
                 score = 0;
 
-                if (reduced)
-                    reset();
+                if (reduced && !eaten)
+                    currentState = States.GameOver;
+                else if (eaten)
+                {
+                    if (currentScore == 0)
+                        currentState = States.GameOver;
+                }
             }
 
             if (currentScore < score)
@@ -101,7 +162,7 @@ namespace SpaceGame
                 }
                 else if (score >= 100)
                     speed = 2;
-                
+
                 monsters.Add(new Monster(contentManager, new Vector2(1280, y), speed));
             }
 
@@ -109,7 +170,10 @@ namespace SpaceGame
 
             if (ship.HasFired())
             {
-                bolts.Add(new Bolt(contentManager, new Vector2(ship.GetPosition().X+32, ship.GetPosition().Y+48), Color.Green, 5, 400));
+                if (ship.GetFrame() != 2)
+                    bolts.Add(new Bolt(contentManager, new Vector2(ship.GetPosition().X + 32, ship.GetPosition().Y + 48), Color.Green, 5, 400));
+                else
+                    bolts.Add(new Bolt(contentManager, new Vector2(ship.GetPosition().X + 32, ship.GetPosition().Y + 20), Color.Green, 5, 400));
             }
 
             if (bolts.Count > 0)
@@ -136,6 +200,8 @@ namespace SpaceGame
                             ship.LockControls(true);
                             monsters[i].SetEating();
                             monsters[i].SetPosition(new Vector2(ship.GetPosition().X + 20, ship.GetPosition().Y));
+                            score = 0;
+                            eaten = true;
                         }
                     }
 
@@ -167,7 +233,24 @@ namespace SpaceGame
             }
         }
 
-        public void Draw(SpriteBatch sb)
+        void updatePaused()
+        {
+            if (GamePad.GetState(0).Buttons.A == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Space))
+                currentState = States.Playing;
+        }
+
+        void updateGameOver()
+        {
+            if (GamePad.GetState(0).Buttons.B == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Enter))
+                reset();
+        }
+
+        void updateLeaderboard()
+        {
+
+        }
+
+        void drawPlaying(SpriteBatch sb)
         {
             sb.DrawString(font, "Score: " + currentScore, new Vector2(10, 10), Color.White);
 
@@ -182,6 +265,22 @@ namespace SpaceGame
             {
                 b.Draw(sb);
             }
+        }
+
+        void drawPaused(SpriteBatch sb)
+        {
+            drawPlaying(sb);
+            sb.DrawString(font, "Paused", new Vector2(600, 300), Color.White);
+        }
+
+        void drawGameOver(SpriteBatch sb)
+        {
+            sb.DrawString(font, "Game Over", new Vector2(600, 300), Color.White);
+        }
+
+        void drawLeaderboard(SpriteBatch sb)
+        {
+
         }
     }
 }
