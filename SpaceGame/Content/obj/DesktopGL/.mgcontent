@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SourceFileCollection xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Profile>Reach</Profile>
+  <Platform>DesktopGL</Platform>
+  <Config />
+  <SourceFiles>
+    <File>C:/Users/Danny/Documents/Visual Studio 2013/Projects/SpaceGame/SpaceGame/SpaceGame/Content/bolt.png</File>
+    <File>C:/Users/Danny/Documents/Visual Studio 2013/Projects/SpaceGame/SpaceGame/SpaceGame/Content/ea.png</File>
+    <File>C:/Users/Danny/Documents/Visual Studio 2013/Projects/SpaceGame/SpaceGame/SpaceGame/Content/monster.png</File>
+    <File>C:/Users/Danny/Documents/Visual Studio 2013/Projects/SpaceGame/SpaceGame/SpaceGame/Content/ship.png</File>
+    <File>C:/Users/Danny/Documents/Visual Studio 2013/Projects/SpaceGame/SpaceGame/SpaceGame/Content/eaJingle.mp3</File>
+    <File>C:/Users/Danny/Documents/Visual Studio 2013/Projects/SpaceGame/SpaceGame/SpaceGame/Content/scorefont.spritefont</File>
+  </SourceFiles>
+</SourceFileCollection>
