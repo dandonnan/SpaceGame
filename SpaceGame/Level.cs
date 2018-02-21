@@ -19,8 +19,8 @@ namespace SpaceGame
         List<Monster> monsters;
         List<Bolt> bolts;
 
-        float score;
-        float currentScore;
+        int score;
+        int currentScore;
         bool reduced;
         SpriteFont font;
 
@@ -30,11 +30,14 @@ namespace SpaceGame
 
         ContentManager contentManager;
         InputManager inputManager;
+        SaveData saveData;
 
-        public Level(ContentManager cm, InputManager im)
+        public Level(ContentManager cm, InputManager im, SaveData sd)
         {
             contentManager = cm;
             inputManager = im;
+
+            saveData = sd;
 
             font = cm.Load<SpriteFont>("scorefont");
 
@@ -53,8 +56,10 @@ namespace SpaceGame
             currentState = States.Playing;
         }
 
-        public void Update()
+        public int Update()
         {
+            int val = 0;
+
             switch (currentState)
             {
                 case States.Playing:
@@ -66,13 +71,18 @@ namespace SpaceGame
                     break;
 
                 case States.GameOver:
-                    updateGameOver();
+                    val = updateGameOver();
+
+                    if (val == 1)
+                        return 1;
                     break;
 
                 case States.Leaderboard:
                     updateLeaderboard();
                     break;
             }
+
+            return 0;
         }
 
         public void Draw(SpriteBatch sb)
@@ -117,6 +127,9 @@ namespace SpaceGame
                         currentState = States.GameOver;
                 }
             }
+
+            if (score > saveData.GetHighScore())
+                saveData.SetHighScore(score);
 
             if (currentScore < score)
                 currentScore += 10;
@@ -241,10 +254,16 @@ namespace SpaceGame
                 currentState = States.Playing;
         }
 
-        void updateGameOver()
+        int updateGameOver()
         {
             if (inputManager.InputAccept())
+            {
                 reset();
+                saveData.Save();
+                return 1;
+            }
+
+            return 0;
         }
 
         void updateLeaderboard()

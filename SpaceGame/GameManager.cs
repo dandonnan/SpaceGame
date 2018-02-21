@@ -19,22 +19,26 @@ namespace SpaceGame
         SplashScreen splashScreen;
         MainMenu mainMenu;
         Level level;
+        SaveData saveData;
 
         public GameManager(ContentManager cm)
         {
             contentManager = cm;
             inputManager = new InputManager();
+            saveData = SaveData.Load();
 
             currentMode = Modes.Splash;
 
             splashScreen = new SplashScreen(contentManager);
-            mainMenu = new MainMenu(contentManager, inputManager);
-            level = new Level(contentManager, inputManager);
+            mainMenu = new MainMenu(contentManager, inputManager, saveData);
+            level = new Level(contentManager, inputManager, saveData);
         }
 
         public void Update()
         {
             inputManager.Update();
+
+            int val = 0;
 
             switch (currentMode)
             {
@@ -46,14 +50,20 @@ namespace SpaceGame
                     break;
 
                 case Modes.Menu:
-                    int val = mainMenu.Update();
+                    val = mainMenu.Update();
 
                     if (val == 1)
                         currentMode = Modes.Game;
                     break;
 
                 case Modes.Game:
-                    level.Update();
+                    val = level.Update();
+
+                    if (val == 1)
+                    {
+                        mainMenu.Refresh();
+                        currentMode = Modes.Menu;
+                    }
                     break;
             }
         }

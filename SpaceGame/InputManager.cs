@@ -27,7 +27,10 @@ namespace SpaceGame
         {
             lastKeyState = keyState;
             lastMouseState = mouseState;
-            lastPadState = padState;
+            for (int i = 0; i < 4; i++)
+            {
+                lastPadState[i] = padState[i];
+            }
 
             keyState = Keyboard.GetState();
             mouseState = Mouse.GetState();
@@ -152,7 +155,7 @@ namespace SpaceGame
 
         public bool InputAccept()
         {
-            if (IsKeyboardPressed(Keys.Enter) || IsPadHeld(Buttons.A))
+            if (IsKeyboardPressed(Keys.Enter) || IsPadPressed(Buttons.A))
                 return true;
 
             return false;

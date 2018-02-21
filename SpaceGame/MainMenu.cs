@@ -29,6 +29,7 @@ namespace SpaceGame
         SpriteFont itemFont;
 
         InputManager inputManager;
+        SaveData saveData;
 
         int playerLevel;
         int playerExp;
@@ -36,21 +37,26 @@ namespace SpaceGame
         float money;
         bool shopNotification;
 
-        public MainMenu(ContentManager cm, InputManager im)
+        public MainMenu(ContentManager cm, InputManager im, SaveData sd)
         {
             inputManager = im;
+            saveData = sd;
 
             spriteSheet = cm.Load<Texture2D>("menu");
             tabFont = cm.Load<SpriteFont>("scorefont");
             itemFont = cm.Load<SpriteFont>("menuitem");
 
-            playerLevel = 1;
-            playerExp = 0;
-            money = 0;
-            expToNextLevel = 10;
+            Refresh();
             shopNotification = true;
 
             currentTab = Tabs.Home;
+        }
+
+        public void Refresh()
+        {
+            playerLevel = saveData.GetPlayerLevel();
+            playerExp = saveData.GetPlayerExp();
+            expToNextLevel = saveData.GetExpToNextLevel();
         }
 
         public int Update()
@@ -134,7 +140,7 @@ namespace SpaceGame
             sb.DrawString(tabFont, "HOME", new Vector2(150, 225), Color.Purple);
 
             sb.Draw(spriteSheet, new Vector2(95, 275), new Rectangle(10, 98, 253, 352), Color.White);
-            sb.DrawString(itemFont, "THE JOURNEY", new Vector2(150, 290), Color.White);
+            sb.DrawString(itemFont, "THE ODYSSEY", new Vector2(150, 290), Color.White);
             sb.Draw(spriteSheet, new Vector2(360, 275), new Rectangle(268, 98, 253, 352), Color.White);
 
             sb.Draw(spriteSheet, new Vector2(630, 275), new Rectangle(536, 233, 454, 128), Color.White);
@@ -149,7 +155,7 @@ namespace SpaceGame
             sb.DrawString(tabFont, "PLAY", new Vector2(275, 225), Color.Purple);
 
             sb.Draw(spriteSheet, new Vector2(100, 275), new Rectangle(535, 101, 454, 128), Color.White);
-            sb.DrawString(itemFont, "THE JOURNEY", new Vector2(400, 375), Color.White);
+            sb.DrawString(itemFont, "THE ODYSSEY", new Vector2(400, 375), Color.White);
             sb.Draw(spriteSheet, new Vector2(100, 410), new Rectangle(536, 233, 454, 128), Color.White);
             sb.Draw(spriteSheet, new Vector2(100, 545), new Rectangle(536, 233, 454, 128), Color.White);
 
