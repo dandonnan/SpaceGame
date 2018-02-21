@@ -22,6 +22,11 @@ namespace SpaceGame
             money = 0;
         }
 
+        public void AddPlayerExp(int exp)
+        {
+            playerExp += exp;
+        }
+
         public void SetHighScore(int hs) { highScore = hs; }
         public void SetPlayerLevel(int lvl) { playerLevel = lvl; }
         public void SetPlayerExp(int exp) { playerExp = exp; }
@@ -30,6 +35,7 @@ namespace SpaceGame
         public int GetHighScore() { return highScore; }
         public int GetPlayerLevel() { return playerLevel; }
         public int GetPlayerExp() { return playerExp; }
+        public float GetMoney() { return money; }
 
         public int GetExpToNextLevel()
         {

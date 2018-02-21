@@ -21,6 +21,7 @@ namespace SpaceGame
 
         int score;
         int currentScore;
+        int sessionScore;
         bool reduced;
         SpriteFont font;
 
@@ -54,6 +55,7 @@ namespace SpaceGame
             score = 0;
             currentScore = 0;
             currentState = States.Playing;
+            sessionScore = 0;
         }
 
         public int Update()
@@ -130,6 +132,9 @@ namespace SpaceGame
 
             if (score > saveData.GetHighScore())
                 saveData.SetHighScore(score);
+
+            if (score > sessionScore)
+                sessionScore = score;
 
             if (currentScore < score)
                 currentScore += 10;
@@ -258,6 +263,7 @@ namespace SpaceGame
         {
             if (inputManager.InputAccept())
             {
+                saveData.AddPlayerExp(sessionScore/100);
                 reset();
                 saveData.Save();
                 return 1;
