@@ -9,20 +9,14 @@ using System.Threading.Tasks;
 
 namespace SpaceGame
 {
-    public class Monster
+    public class Monster : GameObject
     {
-        Texture2D texture;
-        Vector2 position;
-        Rectangle collision;
-
         int frameW = 0;
         int frameH = 0;
 
         bool eating = false;
 
         float fps;
-
-        float health = 1;
         float speed = 1;
 
         public Monster(ContentManager cm, Vector2 pos, float spd)
@@ -32,39 +26,20 @@ namespace SpaceGame
 
             speed = spd;
 
+            width = 64;
+            height = 64;
+
             updateCollision();
         }
-
-        void updateCollision()
-        {
-            collision = new Rectangle((int)position.X, (int)position.Y, 64, 64);
-        }
-
-        public bool IsDead()
-        {
-            if (health <= 0)
-                return true;
-
-            return false;
-        }
-
-        public Vector2 GetPosition() { return position; }
-        public Rectangle GetCollision() { return collision; }
 
         public void SetEating() { eating = true; }
-
-        public void SetPosition(Vector2 pos)
-        {
-            position = pos;
-            updateCollision();
-        }
 
         public void DoDamage(float damage)
         {
             health -= damage;
         }
 
-        public void Update()
+        public override void Update()
         {
             fps++;
 
@@ -85,7 +60,7 @@ namespace SpaceGame
             updateCollision();
         }
 
-        public void Draw(SpriteBatch sb)
+        public override void Draw(SpriteBatch sb)
         {
             sb.Draw(texture, position, new Rectangle(64*frameW, 64*frameH, 64, 64), Color.White);
         }

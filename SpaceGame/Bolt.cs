@@ -9,12 +9,8 @@ using System.Threading.Tasks;
 
 namespace SpaceGame
 {
-    public class Bolt
+    public class Bolt : GameObject
     {
-        Texture2D texture;
-        Vector2 position;
-        Rectangle collision;
-
         Color colour;
 
         int speed = 1;
@@ -29,18 +25,13 @@ namespace SpaceGame
             speed = spd;
             lifetime = life;
 
+            width = 8;
+            height = 8;
+
             updateCollision();
         }
 
-        void updateCollision()
-        {
-            collision = new Rectangle((int)position.X, (int)position.Y, 8, 8);
-        }
-
-        public Rectangle GetCollision() { return collision; }
-        public Vector2 GetPosition() { return position; }
-
-        public bool IsDead()
+        public override bool IsDead()
         {
             if (lifetime <= 0)
                 return true;
@@ -48,7 +39,7 @@ namespace SpaceGame
             return false;
         }
 
-        public void Update()
+        public override void Update()
         {
             position.X += speed;
 
@@ -57,7 +48,7 @@ namespace SpaceGame
             updateCollision();
         }
 
-        public void Draw(SpriteBatch sb)
+        public override void Draw(SpriteBatch sb)
         {
             sb.Draw(texture, position, colour);
         }

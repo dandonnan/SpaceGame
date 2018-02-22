@@ -213,7 +213,7 @@ namespace SpaceGame
                 {
                     monsters[i].Update();
 
-                    if (ship.GetCollision().Intersects(monsters[i].GetCollision()))
+                    if (ship.GetCollision().Intersects(monsters[i].GetCollisionBox()))
                     {
                         if (!ship.ControlsLocked())
                         {
@@ -229,7 +229,7 @@ namespace SpaceGame
                     {
                         for (int j = bolts.Count - 1; j >= 0; j--)
                         {
-                            if (bolts[j].GetCollision().Intersects(monsters[i].GetCollision()))
+                            if (bolts[j].GetCollisionBox().Intersects(monsters[i].GetCollisionBox()))
                             {
                                 monsters[i].DoDamage(1);
                                 score += 100;
