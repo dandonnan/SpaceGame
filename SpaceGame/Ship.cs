@@ -10,17 +10,11 @@ using System.Threading.Tasks;
 
 namespace SpaceGame
 {
-    public class Ship
+    public class Ship : GameObject
     {
-        Texture2D texture;
-        Vector2 position;
-        Rectangle collision;
-
         float boltCooldown = 10;
         float cooldown;
         bool firing = false;
-
-        bool canMove = true;
 
         int frame = 0;
 
@@ -34,16 +28,11 @@ namespace SpaceGame
 
             position = new Vector2(10, 310);
 
+            width = 64;
+            height = 64;
+
             updateCollision();
         }
-
-        void updateCollision()
-        {
-            collision = new Rectangle((int)position.X, (int)position.Y, 64, 64);
-        }
-
-        public Vector2 GetPosition() { return position; }
-        public Rectangle GetCollision() { return collision; }
 
         public int GetFrame() { return frame; }
 
@@ -60,7 +49,7 @@ namespace SpaceGame
             return false;
         }
 
-        public void Update()
+        public override void Update()
         {
             frame = 0;
 
@@ -100,7 +89,7 @@ namespace SpaceGame
             updateCollision();
         }
 
-        public void Draw(SpriteBatch sb)
+        public override void Draw(SpriteBatch sb)
         {
             sb.Draw(texture, position, new Rectangle(64*frame, 0, 64, 64), Color.White);
         }

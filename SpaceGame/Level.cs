@@ -18,6 +18,7 @@ namespace SpaceGame
         Ship ship;
         List<Monster> monsters;
         List<Bolt> bolts;
+        StarfieldManager starfield;
 
         int score;
         int currentScore;
@@ -50,6 +51,7 @@ namespace SpaceGame
             ship = new Ship(contentManager, inputManager);
             monsters = new List<Monster>();
             bolts = new List<Bolt>();
+            starfield = new StarfieldManager(contentManager);
             reduced = false;
             eaten = false;
             score = 0;
@@ -213,7 +215,7 @@ namespace SpaceGame
                 {
                     monsters[i].Update();
 
-                    if (ship.GetCollision().Intersects(monsters[i].GetCollisionBox()))
+                    if (ship.GetCollisionBox().Intersects(monsters[i].GetCollisionBox()))
                     {
                         if (!ship.ControlsLocked())
                         {
@@ -251,6 +253,8 @@ namespace SpaceGame
                     }
                 }
             }
+
+            starfield.Update();
         }
 
         void updatePaused()
@@ -279,6 +283,8 @@ namespace SpaceGame
 
         void drawPlaying(SpriteBatch sb)
         {
+            starfield.Draw(sb);
+
             sb.DrawString(font, "Score: " + currentScore, new Vector2(10, 10), Color.White);
 
             ship.Draw(sb);
@@ -296,6 +302,8 @@ namespace SpaceGame
 
         void drawPaused(SpriteBatch sb)
         {
+            starfield.Draw(sb);
+
             drawPlaying(sb);
             sb.DrawString(font, "Paused", new Vector2(600, 300), Color.White);
         }

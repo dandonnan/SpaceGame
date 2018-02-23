@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <SourceFile>C:/Users/ukddonnan/Documents/Visual Studio 2012/Projects/SpaceGame/trunk/SpaceGame/Content/ship.png</SourceFile>
-  <SourceTime>2018-02-23T12:22:43.4153491+00:00</SourceTime>
-  <DestFile>C:/Users/ukddonnan/Documents/Visual Studio 2012/Projects/SpaceGame/trunk/SpaceGame/Content/bin/DesktopGL/ship.xnb</DestFile>
-  <DestTime>2018-02-23T12:41:48.8223491+00:00</DestTime>
+  <SourceFile>C:/Users/ukddonnan/Documents/Visual Studio 2012/Projects/SpaceGame/trunk/SpaceGame/Content/starfield.png</SourceFile>
+  <SourceTime>2018-02-23T12:26:25.6793491+00:00</SourceTime>
+  <DestFile>C:/Users/ukddonnan/Documents/Visual Studio 2012/Projects/SpaceGame/trunk/SpaceGame/Content/bin/DesktopGL/starfield.xnb</DestFile>
+  <DestTime>2018-02-23T12:41:48.9743491+00:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2017-03-01T15:05:36+00:00</ImporterTime>
   <Processor>TextureProcessor</Processor>

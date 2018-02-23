@@ -130,7 +130,7 @@ namespace SpaceGame
         public bool InputLeftPressed()
         {
             if (IsKeyboardPressed(Keys.A) || IsKeyboardPressed(Keys.Left) ||
-                IsPadHeld(Buttons.DPadLeft) || IsPadHeld(Buttons.LeftThumbstickLeft))
+                IsPadPressed(Buttons.DPadLeft) || IsPadPressed(Buttons.LeftThumbstickLeft))
                 return true;
 
             return false;
@@ -139,7 +139,7 @@ namespace SpaceGame
         public bool InputRightPressed()
         {
             if (IsKeyboardPressed(Keys.D) || IsKeyboardPressed(Keys.Right) ||
-                IsPadHeld(Buttons.DPadRight) || IsPadHeld(Buttons.LeftThumbstickRight))
+                IsPadPressed(Buttons.DPadRight) || IsPadPressed(Buttons.LeftThumbstickRight))
                 return true;
 
             return false;

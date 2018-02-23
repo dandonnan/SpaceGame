@@ -56,6 +56,8 @@
     <Compile Include="SaveData.cs" />
     <Compile Include="Ship.cs" />
     <Compile Include="SplashScreen.cs" />
+    <Compile Include="StarfieldManager.cs" />
+    <Compile Include="StarfieldObject.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">
