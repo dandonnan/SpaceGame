@@ -10,10 +10,11 @@ namespace SpaceGame
 {
     public class StarfieldObject : GameObject
     {
-        public enum Predefined { SmallStar, PointedStar, Planet };
+        public enum Predefined { SmallStar, PointedStar, Planet, Nebula };
 
         float velocity = 0;
         float scale = 0;
+        float rotation = 0;
 
         int spriteOffsetX;
         int spriteOffsetY;
@@ -48,6 +49,33 @@ namespace SpaceGame
                 spriteWidth = 151;
                 spriteHeight = 38;
             }
+            else if (def == Predefined.Nebula)
+            {
+                Random rand = new Random();
+                int type = rand.Next(0, 3);
+
+                spriteOffsetX = 10;
+                spriteOffsetY = 2;
+                spriteWidth = 32;
+                spriteHeight = 25;
+
+                if (type == 1)
+                {
+                    spriteOffsetX = 44;
+                    spriteOffsetY = 4;
+                    spriteWidth = 23;
+                    spriteHeight = 18;
+                }
+                else if (type==2)
+                {
+                    spriteOffsetX = 70;
+                    spriteOffsetY = 2;
+                    spriteWidth = 27;
+                    spriteHeight = 31;
+                }
+
+                rotation = rand.Next(0, (int)Math.PI*2);
+            }
 
         }
 
@@ -66,7 +94,7 @@ namespace SpaceGame
 
         public override void Draw(SpriteBatch sb)
         {
-            sb.Draw(texture, position, new Rectangle(spriteOffsetX, spriteOffsetY, spriteWidth, spriteHeight), Color.White, 0, Vector2.Zero, scale, SpriteEffects.None, 0);
+            sb.Draw(texture, position, new Rectangle(spriteOffsetX, spriteOffsetY, spriteWidth, spriteHeight), Color.White, rotation, new Vector2(spriteWidth/2, spriteHeight/2), scale, SpriteEffects.None, 0);
         }
     }
 }

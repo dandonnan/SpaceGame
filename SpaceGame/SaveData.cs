@@ -14,12 +14,20 @@ namespace SpaceGame
         int playerExp;
         float money;
 
+
+
+        bool[] bolts;
+        bool[] colours;
+
         public SaveData()
         {
             highScore = 0;
             playerLevel = 1;
             playerExp = 0;
             money = 0;
+
+            colours = new bool[0];
+            // Green, Red, Blue, Yellow, 
         }
 
         public void AddPlayerExp(int exp)

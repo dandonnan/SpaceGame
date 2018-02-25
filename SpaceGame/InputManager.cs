@@ -145,6 +145,24 @@ namespace SpaceGame
             return false;
         }
 
+        public bool InputDownPressed()
+        {
+            if (IsKeyboardPressed(Keys.S) || IsKeyboardPressed(Keys.Down) ||
+                IsPadPressed(Buttons.DPadDown) || IsPadPressed(Buttons.LeftThumbstickDown))
+                return true;
+
+            return false;
+        }
+
+        public bool InputUpPressed()
+        {
+            if (IsKeyboardPressed(Keys.W) || IsKeyboardPressed(Keys.Up) ||
+                IsPadPressed(Buttons.DPadUp) || IsPadPressed(Buttons.LeftThumbstickUp))
+                return true;
+
+            return false;
+        }
+
         public bool InputFire()
         {
             if (IsKeyboardHeld(Keys.Space) || IsPadHeld(Buttons.RightTrigger) || IsPadHeld(Buttons.A))
@@ -156,6 +174,14 @@ namespace SpaceGame
         public bool InputAccept()
         {
             if (IsKeyboardPressed(Keys.Enter) || IsPadPressed(Buttons.A))
+                return true;
+
+            return false;
+        }
+
+        public bool InputDecline()
+        {
+            if (IsKeyboardPressed(Keys.Back) || IsPadPressed(Buttons.B))
                 return true;
 
             return false;

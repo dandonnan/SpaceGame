@@ -70,7 +70,10 @@ namespace SpaceGame
             //    Exit();
 
             // TODO: Add your update logic here
-            gameManager.Update();
+            int quit = gameManager.Update();
+
+            if (quit == 1)
+                Exit();
 
             base.Update(gameTime);
         }

@@ -29,7 +29,32 @@ namespace SpaceGame
             maxTime = 5;
 
             objects.Add(new StarfieldObject(starfield, new Vector2(1350, 682), 0.1f, 1, StarfieldObject.Predefined.Planet));
+
+            generateInitialField();
         }
+
+        void generateInitialField()
+        {
+            Random rand = new Random();
+
+            for (int i = 0; i < 150; i++)
+            {
+                int x = rand.Next(0, 1280);
+                int y = rand.Next(0, 720);
+                int spd = rand.Next(2, 5);
+                int scl = rand.Next(1, 3);
+                //if (rand.Next(0, 100) < 95)
+                //{
+                    objects.Add(new StarfieldObject(starfield, new Vector2(x, y), spd, scl, StarfieldObject.Predefined.SmallStar));
+                //}
+                //else
+                //{
+                    //objects.Add(new StarfieldObject(starfield, new Vector2(x, y), 1, 1, StarfieldObject.Predefined.Nebula));
+                //}
+            }
+        }
+
+        public int GetStarfieldObjectCount() { return objects.Count; }
 
         public void Update()
         {
@@ -40,7 +65,16 @@ namespace SpaceGame
                 Random rand = new Random();
                 timeUntilNext = rand.Next(minTime, maxTime + 1);
                 int y = rand.Next(0, 682);
-                objects.Add(new StarfieldObject(starfield, new Vector2(1280, y), 3, 1, StarfieldObject.Predefined.SmallStar));
+                int spd = rand.Next(2, 5);
+                int scl = rand.Next(1, 3);
+                //if (rand.Next(0, 100) < 95)
+                //{
+                    objects.Add(new StarfieldObject(starfield, new Vector2(1280, y), spd, scl, StarfieldObject.Predefined.SmallStar));
+                //}
+                //else
+                //{
+                    //objects.Add(new StarfieldObject(starfield, new Vector2(1280, y), 1, 1, StarfieldObject.Predefined.Nebula));
+                //}
             }
 
             if (objects.Count > 0)

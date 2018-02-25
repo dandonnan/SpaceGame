@@ -79,3 +79,4 @@ C:\Users\ukddonnan\Documents\Visual Studio 2012\Projects\SpaceGame\trunk\SpaceGa
 C:\Users\ukddonnan\Documents\Visual Studio 2012\Projects\SpaceGame\trunk\SpaceGame\bin\DesktopGL\AnyCPU\Debug\MonoGame.Framework.dll
 C:\Users\ukddonnan\Documents\Visual Studio 2012\Projects\SpaceGame\trunk\SpaceGame\obj\Debug\SpaceGame.csprojResolveAssemblyReference.cache
 C:\Users\ukddonnan\Documents\Visual Studio 2012\Projects\SpaceGame\trunk\SpaceGame\bin\DesktopGL\AnyCPU\Debug\Content\starfield.xnb
+C:\Users\Danny\Documents\Visual Studio 2013\Projects\SpaceGame\SpaceGame\SpaceGame\bin\DesktopGL\AnyCPU\Debug\Content\starfield.xnb

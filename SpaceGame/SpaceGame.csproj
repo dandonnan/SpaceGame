@@ -44,6 +44,7 @@
   <ItemGroup>
     <Compile Include="AudioManager.cs" />
     <Compile Include="Bolt.cs" />
+    <Compile Include="Card.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="GameManager.cs" />
     <Compile Include="GameObject.cs" />
@@ -58,6 +59,7 @@
     <Compile Include="SplashScreen.cs" />
     <Compile Include="StarfieldManager.cs" />
     <Compile Include="StarfieldObject.cs" />
+    <Compile Include="UltimateCrew.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">

@@ -34,7 +34,7 @@ namespace SpaceGame
             level = new Level(contentManager, inputManager, saveData);
         }
 
-        public void Update()
+        public int Update()
         {
             inputManager.Update();
 
@@ -54,6 +54,8 @@ namespace SpaceGame
 
                     if (val == 1)
                         currentMode = Modes.Game;
+                    else if (val == 6)
+                        return 1;
                     break;
 
                 case Modes.Game:
@@ -66,6 +68,8 @@ namespace SpaceGame
                     }
                     break;
             }
+
+            return 0;
         }
 
         public void Draw(SpriteBatch sb)

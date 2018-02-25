@@ -19,6 +19,7 @@ namespace SpaceGame
         List<Monster> monsters;
         List<Bolt> bolts;
         StarfieldManager starfield;
+        Texture2D extraAssets;
 
         int score;
         int currentScore;
@@ -42,6 +43,7 @@ namespace SpaceGame
             saveData = sd;
 
             font = cm.Load<SpriteFont>("scorefont");
+            extraAssets = cm.Load<Texture2D>("menu");
 
             reset();
         }
@@ -285,7 +287,8 @@ namespace SpaceGame
         {
             starfield.Draw(sb);
 
-            sb.DrawString(font, "Score: " + currentScore, new Vector2(10, 10), Color.White);
+            sb.Draw(extraAssets, new Vector2(0, 10), new Rectangle(729, 13, 146, 27), Color.White);
+            sb.DrawString(font, "Score: " + currentScore, new Vector2(10, 12), Color.Black);
 
             ship.Draw(sb);
 
@@ -298,6 +301,8 @@ namespace SpaceGame
             {
                 b.Draw(sb);
             }
+
+            sb.DrawString(font, "Stars: " + starfield.GetStarfieldObjectCount(), new Vector2(10, 650), Color.White);
         }
 
         void drawPaused(SpriteBatch sb)
