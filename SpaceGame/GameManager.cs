@@ -10,7 +10,7 @@ namespace SpaceGame
 {
     class GameManager
     {
-        enum Modes { Splash, Menu, Game }
+        enum Modes { Splash, Menu, Crew, Game }
         Modes currentMode;
 
         ContentManager contentManager;
@@ -18,6 +18,7 @@ namespace SpaceGame
 
         SplashScreen splashScreen;
         MainMenu mainMenu;
+        UCMenu ucMenu;
         Level level;
         SaveData saveData;
 
@@ -31,6 +32,7 @@ namespace SpaceGame
 
             splashScreen = new SplashScreen(contentManager);
             mainMenu = new MainMenu(contentManager, inputManager, saveData);
+            ucMenu = new UCMenu(contentManager, inputManager, saveData);
             level = new Level(contentManager, inputManager, saveData);
         }
 
@@ -54,8 +56,20 @@ namespace SpaceGame
 
                     if (val == 1)
                         currentMode = Modes.Game;
+                    else if (val == 3)
+                        currentMode = Modes.Crew;
                     else if (val == 6)
                         return 1;
+                    break;
+
+                case Modes.Crew:
+                    val = ucMenu.Update();
+
+                    if (val == 1)
+                    {
+                        mainMenu.Refresh();
+                        currentMode = Modes.Menu;
+                    }
                     break;
 
                 case Modes.Game:
@@ -82,6 +96,10 @@ namespace SpaceGame
 
                 case Modes.Menu:
                     mainMenu.Draw(sb);
+                    break;
+
+                case Modes.Crew:
+                    ucMenu.Draw(sb);
                     break;
 
                 case Modes.Game:

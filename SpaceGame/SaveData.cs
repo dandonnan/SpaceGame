@@ -14,8 +14,7 @@ namespace SpaceGame
         int playerExp;
         float money;
 
-
-
+        int boxesToOpen;
         bool[] bolts;
         bool[] colours;
 
@@ -26,8 +25,9 @@ namespace SpaceGame
             playerExp = 0;
             money = 0;
 
-            colours = new bool[0];
-            // Green, Red, Blue, Yellow, 
+            boxesToOpen = 0;
+
+            colours = new bool[4];  // Green, Red, Blue, Yellow, 
         }
 
         public void AddPlayerExp(int exp)
@@ -35,15 +35,20 @@ namespace SpaceGame
             playerExp += exp;
         }
 
+        public void AddUnopenedBox() { boxesToOpen++; }
+        public void RemoveUnopenedBox() { boxesToOpen--; }
+
         public void SetHighScore(int hs) { highScore = hs; }
         public void SetPlayerLevel(int lvl) { playerLevel = lvl; }
         public void SetPlayerExp(int exp) { playerExp = exp; }
         public void SetMoney(float mny) { money = mny; }
+        public void SetUnopenedBoxes(int box) { boxesToOpen = box; }
 
         public int GetHighScore() { return highScore; }
         public int GetPlayerLevel() { return playerLevel; }
         public int GetPlayerExp() { return playerExp; }
         public float GetMoney() { return money; }
+        public int GetUnopenedBoxes() { return boxesToOpen; }
 
         public int GetExpToNextLevel()
         {
@@ -63,6 +68,7 @@ namespace SpaceGame
             sw.WriteLine(playerLevel);
             sw.WriteLine(playerExp);
             sw.WriteLine(money);
+            sw.WriteLine(boxesToOpen);
             sw.Close();
         }
 
@@ -77,6 +83,7 @@ namespace SpaceGame
                 sd.SetPlayerLevel(int.Parse(sr.ReadLine()));
                 sd.SetPlayerExp(int.Parse(sr.ReadLine()));
                 sd.SetMoney(int.Parse(sr.ReadLine()));
+                if (!sr.EndOfStream) { sd.SetUnopenedBoxes(int.Parse(sr.ReadLine())); }
                 sr.Close();
 
                 return sd;

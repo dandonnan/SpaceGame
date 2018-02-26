@@ -56,9 +56,11 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SaveData.cs" />
     <Compile Include="Ship.cs" />
+    <Compile Include="Shop.cs" />
     <Compile Include="SplashScreen.cs" />
     <Compile Include="StarfieldManager.cs" />
     <Compile Include="StarfieldObject.cs" />
+    <Compile Include="UCMenu.cs" />
     <Compile Include="UltimateCrew.cs" />
   </ItemGroup>
   <ItemGroup>

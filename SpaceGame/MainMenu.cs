@@ -25,6 +25,8 @@ namespace SpaceGame
         InputManager inputManager;
         SaveData saveData;
 
+        Shop shop;
+
         int currentSelection;
 
         int playerLevel;
@@ -33,12 +35,15 @@ namespace SpaceGame
         float money;
         bool shopNotification;
 
+        bool leveledUp;
         bool quitCheck;
 
         public MainMenu(ContentManager cm, InputManager im, SaveData sd)
         {
             inputManager = im;
             saveData = sd;
+
+            shop = new Shop(sd);
 
             spriteSheet = cm.Load<Texture2D>("menu");
             tabFont = cm.Load<SpriteFont>("scorefont");
@@ -55,6 +60,8 @@ namespace SpaceGame
 
         public void Refresh()
         {
+            leveledUp = false;
+
             playerLevel = saveData.GetPlayerLevel();
             playerExp = saveData.GetPlayerExp();
             expToNextLevel = saveData.GetExpToNextLevel();
@@ -69,6 +76,8 @@ namespace SpaceGame
 
                     saveData.SetPlayerLevel(playerLevel);
                     saveData.SetPlayerExp(playerExp);
+
+                    leveledUp = true;
 
                     expToNextLevel = saveData.GetExpToNextLevel();
                 }
@@ -87,7 +96,7 @@ namespace SpaceGame
         {
             int returnValue = 0;
 
-            if (!quitCheck)
+            if (!quitCheck && !leveledUp)
             {
                 switch (currentTab)
                 {
@@ -100,6 +109,8 @@ namespace SpaceGame
                         break;
 
                     case Tabs.Shop:
+                        shop.Update();
+
                         if (inputManager.InputLeftPressed())
                             currentTab = Tabs.Play;
 
@@ -113,16 +124,21 @@ namespace SpaceGame
                         break;
                 }
 
-                if (inputManager.InputPause())
+                if (inputManager.InputQuit())
                     quitCheck = true;
             }
-            else
+            else if (quitCheck)
             {
                 if (inputManager.InputAccept())
                     returnValue = 6;
 
                 if (inputManager.InputDecline())
                     quitCheck = false;
+            }
+            else if (leveledUp)
+            {
+                if (inputManager.InputAccept() || inputManager.InputDecline())
+                    leveledUp = false;
             }
 
             return returnValue;
@@ -167,6 +183,15 @@ namespace SpaceGame
                 sb.DrawString(tabFont, "Yes", new Vector2(540, 380), Color.White);
                 sb.Draw(spriteSheet, new Vector2(675, 375), new Rectangle(618, 45, 32, 32), Color.White);
                 sb.DrawString(tabFont, "No", new Vector2(712, 380), Color.White);
+            }
+
+            if (leveledUp)
+            {
+                sb.Draw(spriteSheet, new Vector2(490, 285), new Rectangle(479, 503, 300, 150), Color.White);
+                sb.DrawString(tabFont, "You've Levelled Up!", new Vector2(530, 295), Color.White);
+                sb.Draw(spriteSheet, new Vector2(580, 318), new Rectangle(1003, 120, 122, 109), Color.White, 0, Vector2.Zero, 0.5f, SpriteEffects.None, 0);
+                sb.Draw(spriteSheet, new Vector2(580, 316), new Rectangle(1003, 49, 121, 37), Color.White, 0, Vector2.Zero, 0.5f, SpriteEffects.None, 0);
+                sb.DrawString(tabFont, "A new Reward awaits in the Shop.", new Vector2(530, 400), Color.White);
             }
         }
 
@@ -338,6 +363,8 @@ namespace SpaceGame
             sb.Draw(spriteSheet, new Vector2(100, 640), new Rectangle(585, 11, 32, 32), Color.White);
             //string drawSelected = "";
             //sb.DrawString(tabFont, "Select " + drawSelected, new Vector2(140, 647), Color.White);
+
+            shop.Draw(sb);
         }
 
         void drawCustomise(SpriteBatch sb)

@@ -195,5 +195,13 @@ namespace SpaceGame
             return false;
         }
 
+        public bool InputQuit()
+        {
+            if (IsKeyboardPressed(Keys.Escape) || IsPadPressed(Buttons.Back))
+                return true;
+
+            return false;
+        }
+
     }
 }

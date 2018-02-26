@@ -43,7 +43,7 @@ namespace SpaceGame
                 int y = rand.Next(0, 720);
                 int spd = rand.Next(2, 5);
                 int scl = rand.Next(1, 3);
-                //if (rand.Next(0, 100) < 95)
+                if (rand.Next(0, 100) < 95)
                 //{
                     objects.Add(new StarfieldObject(starfield, new Vector2(x, y), spd, scl, StarfieldObject.Predefined.SmallStar));
                 //}
