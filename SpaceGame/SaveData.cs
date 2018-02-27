@@ -18,6 +18,8 @@ namespace SpaceGame
         bool[] bolts;
         bool[] colours;
 
+        List<Card> deck;
+
         public SaveData()
         {
             highScore = 0;
@@ -28,6 +30,18 @@ namespace SpaceGame
             boxesToOpen = 0;
 
             colours = new bool[4];  // Green, Red, Blue, Yellow, 
+
+            deck = new List<Card>();
+
+            deck.Add(new Card(Card.CardTypes.Ship, "USS Untitled", UltimateCrew.Roles.Ship, UltimateCrew.Fleets.Undefined, 1000));
+            deck.Add(new Card(Card.CardTypes.Part, "Blaster Mk1", UltimateCrew.Roles.Weapon, UltimateCrew.Fleets.Undefined, 500));
+            deck.Add(new Card(Card.CardTypes.Part, "Scattershot Mk1", UltimateCrew.Roles.Weapon, UltimateCrew.Fleets.Undefined, 500));
+            deck.Add(new Card(Card.CardTypes.Crew, "El Capitan", UltimateCrew.Roles.Captain, UltimateCrew.Fleets.Undefined, 400));
+            deck.Add(new Card(Card.CardTypes.Crew, "Engine Man", UltimateCrew.Roles.Engineer, UltimateCrew.Fleets.Undefined, 300));
+            deck.Add(new Card(Card.CardTypes.Crew, "Mr. Driver", UltimateCrew.Roles.Pilot, UltimateCrew.Fleets.Undefined, 200));
+
+            foreach (Card c in deck)
+                c.AddToHand();
         }
 
         public void AddPlayerExp(int exp)
@@ -37,6 +51,7 @@ namespace SpaceGame
 
         public void AddUnopenedBox() { boxesToOpen++; }
         public void RemoveUnopenedBox() { boxesToOpen--; }
+        public void AddCardToList(Card c) { deck.Add(c); }
 
         public void SetHighScore(int hs) { highScore = hs; }
         public void SetPlayerLevel(int lvl) { playerLevel = lvl; }
@@ -49,6 +64,7 @@ namespace SpaceGame
         public int GetPlayerExp() { return playerExp; }
         public float GetMoney() { return money; }
         public int GetUnopenedBoxes() { return boxesToOpen; }
+        public List<Card> GetCardList() { return deck; }
 
         public int GetExpToNextLevel()
         {

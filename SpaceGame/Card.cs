@@ -22,10 +22,43 @@ namespace SpaceGame
         int resaleValue;
 
         bool shiny;
+        bool inHand;
 
         public Card()
         {
         }
+
+        public Card(CardTypes type, string n, UltimateCrew.Roles r, UltimateCrew.Fleets f, int bv)
+        {
+            cardType = type;
+            name = n;
+            role = r;
+            fleet = f;
+            buyValue = bv;
+            resaleValue = buyValue / 2;
+        }
+
+        public Card(CardTypes type, string n, UltimateCrew.Roles r, UltimateCrew.Fleets f, int bv, float inct, float rflx)
+        {
+            cardType = type;
+            name = n;
+            role = r;
+            fleet = f;
+            buyValue = bv;
+            resaleValue = buyValue / 2;
+
+            intellect = inct;
+            reflex = rflx;
+        }
+
+        public void SetResaleValue(int rv) { resaleValue = rv; }
+
+        public bool IsInHand() { return inHand; }
+        public void AddToHand() { inHand = true; }
+        public void RemoveFromHand() { inHand = false; }
+
+        public void SetShiny() { shiny = true; }
+        public void SetShiny(bool s) { shiny = s; }
 
         public string GetName() { return name; }
         public CardTypes GetCardType() { return cardType; }

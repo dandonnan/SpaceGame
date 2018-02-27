@@ -20,6 +20,9 @@ namespace SpaceGame
         MainMenu mainMenu;
         UCMenu ucMenu;
         Level level;
+
+        MousePointer pointer;
+
         SaveData saveData;
 
         public GameManager(ContentManager cm)
@@ -28,17 +31,20 @@ namespace SpaceGame
             inputManager = new InputManager();
             saveData = SaveData.Load();
 
-            currentMode = Modes.Splash;
+            currentMode = Modes.Crew;
 
             splashScreen = new SplashScreen(contentManager);
             mainMenu = new MainMenu(contentManager, inputManager, saveData);
             ucMenu = new UCMenu(contentManager, inputManager, saveData);
             level = new Level(contentManager, inputManager, saveData);
+
+            pointer = new MousePointer(contentManager, inputManager);
         }
 
         public int Update()
         {
             inputManager.Update();
+            pointer.Update();
 
             int val = 0;
 
@@ -106,6 +112,8 @@ namespace SpaceGame
                     level.Draw(sb);
                     break;
             }
+
+            pointer.Draw(sb);
         }
     }
 }

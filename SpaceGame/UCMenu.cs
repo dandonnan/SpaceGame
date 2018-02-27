@@ -19,6 +19,9 @@ namespace SpaceGame
         InputManager inputManager;
         SaveData saveData;
 
+        List<Card> deck;
+        List<Card> hand;
+
         public UCMenu(ContentManager cm, InputManager im, SaveData sd)
         {
             textureSheet = cm.Load<Texture2D>("menu");
@@ -28,6 +31,19 @@ namespace SpaceGame
 
             inputManager = im;
             saveData = sd;
+
+            deck = saveData.GetCardList();
+            hand = new List<Card>();
+            getHand();
+        }
+
+        void getHand()
+        {
+            foreach (Card c in deck)
+            {
+                if (c.IsInHand())
+                    hand.Add(c);
+            }
         }
 
         public int Update()
@@ -106,12 +122,15 @@ namespace SpaceGame
 
             string sel = "";
 
-            if (optionSelected == 0) { sel = "Ship"; sb.Draw(textureSheet, new Vector2(300, 100), new Rectangle(486, 1, 10, 10), Color.White); }
-            if (optionSelected == 1) { sel = "Weapon 1"; sb.Draw(textureSheet, new Vector2(100, 240), new Rectangle(486, 1, 10, 10), Color.White); }
-            if (optionSelected == 2) { sel = "Weapon 2"; sb.Draw(textureSheet, new Vector2(500, 240), new Rectangle(486, 1, 10, 10), Color.White); }
-            if (optionSelected == 3) { sel = "Captain"; sb.Draw(textureSheet, new Vector2(100, 440), new Rectangle(486, 1, 10, 10), Color.White); }
-            if (optionSelected == 4) { sel = "Pilot"; sb.Draw(textureSheet, new Vector2(300, 440), new Rectangle(486, 1, 10, 10), Color.White); }
-            if (optionSelected == 5) { sel = "Engineer"; sb.Draw(textureSheet, new Vector2(500, 440), new Rectangle(486, 1, 10, 10), Color.White); }
+            if (optionSelected < 6)
+                sel = hand[optionSelected].GetName();
+
+            if (optionSelected == 0) { sb.Draw(textureSheet, new Vector2(300, 100), new Rectangle(486, 1, 10, 10), Color.White); }
+            if (optionSelected == 1) { sb.Draw(textureSheet, new Vector2(100, 240), new Rectangle(486, 1, 10, 10), Color.White); }
+            if (optionSelected == 2) { sb.Draw(textureSheet, new Vector2(500, 240), new Rectangle(486, 1, 10, 10), Color.White); }
+            if (optionSelected == 3) { sb.Draw(textureSheet, new Vector2(100, 440), new Rectangle(486, 1, 10, 10), Color.White); }
+            if (optionSelected == 4) { sb.Draw(textureSheet, new Vector2(300, 440), new Rectangle(486, 1, 10, 10), Color.White); }
+            if (optionSelected == 5) { sb.Draw(textureSheet, new Vector2(500, 440), new Rectangle(486, 1, 10, 10), Color.White); }
             if (optionSelected == 6) { sel = "Deck"; sb.Draw(textureSheet, new Vector2(1050, 165), new Rectangle(486, 1, 10, 10), Color.White); }
             
             sb.DrawString(debugFont, sel, new Vector2(50, 650), Color.White);

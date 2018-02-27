@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework.Input;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -39,6 +40,11 @@ namespace SpaceGame
             {
                 padState[i] = GamePad.GetState(i);
             }
+        }
+
+        public Vector2 GetMousePos()
+        {
+            return new Vector2(mouseState.X, mouseState.Y);
         }
 
         public bool IsKeyboardPressed(Keys key)
