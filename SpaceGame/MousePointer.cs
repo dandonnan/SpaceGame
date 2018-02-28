@@ -29,6 +29,16 @@ namespace SpaceGame
             idle = true;
         }
 
+        public bool IsIdle() { return idle; }
+
+        public float GetX() { return mousePos.X; }
+        public float GetY() { return mousePos.Y; }
+
+        public bool Clicked()
+        {
+            return inputManager.IsLeftMouseClicked();
+        }
+
         public void Update()
         {
             mousePos = inputManager.GetMousePos();
@@ -60,8 +70,6 @@ namespace SpaceGame
             }
 
             lastMousePos = mousePos;
-
-            Console.WriteLine("Alpha: " + alpha);
         }
 
         public void Draw(SpriteBatch sb)

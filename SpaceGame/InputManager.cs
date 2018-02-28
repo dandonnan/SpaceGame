@@ -47,6 +47,22 @@ namespace SpaceGame
             return new Vector2(mouseState.X, mouseState.Y);
         }
 
+        public bool IsLeftMouseClicked()
+        {
+            if (mouseState.LeftButton == ButtonState.Pressed && lastMouseState.LeftButton != ButtonState.Pressed)
+                return true;
+
+            return false;
+        }
+
+        public bool IsLeftMouseHeld()
+        {
+            if (mouseState.LeftButton == ButtonState.Pressed && lastMouseState.LeftButton == ButtonState.Pressed)
+                return true;
+
+            return false;
+        }
+
         public bool IsKeyboardPressed(Keys key)
         {
             if (keyState.IsKeyDown(key) && !lastKeyState.IsKeyDown(key))

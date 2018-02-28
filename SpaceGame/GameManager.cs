@@ -31,14 +31,14 @@ namespace SpaceGame
             inputManager = new InputManager();
             saveData = SaveData.Load();
 
-            currentMode = Modes.Crew;
-
-            splashScreen = new SplashScreen(contentManager);
-            mainMenu = new MainMenu(contentManager, inputManager, saveData);
-            ucMenu = new UCMenu(contentManager, inputManager, saveData);
-            level = new Level(contentManager, inputManager, saveData);
+            currentMode = Modes.Splash;
 
             pointer = new MousePointer(contentManager, inputManager);
+
+            splashScreen = new SplashScreen(contentManager);
+            mainMenu = new MainMenu(contentManager, inputManager, saveData, pointer);
+            ucMenu = new UCMenu(contentManager, inputManager, saveData);
+            level = new Level(contentManager, inputManager, saveData);
         }
 
         public int Update()

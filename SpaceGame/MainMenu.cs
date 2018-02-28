@@ -13,8 +13,6 @@ namespace SpaceGame
     {
         // top bar: Level, Exp/Exp, Money, Shop (notification)
 
-        // back button / esc: Do you want to quit? YES | NO
-
         enum Tabs { Home, Play, Shop, Customise }
         Tabs currentTab;
 
@@ -38,7 +36,17 @@ namespace SpaceGame
         bool leveledUp;
         bool quitCheck;
 
-        public MainMenu(ContentManager cm, InputManager im, SaveData sd)
+        UIElement homeOdyssey;
+        UIElement homeInfinity;
+        UIElement homeCrew;
+        UIElement homeProduct;
+
+        UIElement playInfinity;
+        UIElement playOdyssey;
+        UIElement playCrew;
+        UIElement playTraining;
+
+        public MainMenu(ContentManager cm, InputManager im, SaveData sd, MousePointer mp)
         {
             inputManager = im;
             saveData = sd;
@@ -56,6 +64,21 @@ namespace SpaceGame
             shopNotification = true;
 
             currentTab = Tabs.Home;
+
+            homeOdyssey = new UIElement(spriteSheet, new Vector2(95, 275), new Rectangle(10, 98, 253, 352), mp);
+            homeInfinity = new UIElement(spriteSheet, new Vector2(360, 275), new Rectangle(268, 98, 253, 352), mp);
+            homeCrew = new UIElement(spriteSheet, new Vector2(630, 275), new Rectangle(536, 233, 454, 128), mp);
+            homeProduct = new UIElement(spriteSheet, new Vector2(630, 420), new Rectangle(14, 462, 456, 215), mp);
+
+            homeOdyssey.AddTextElement("THE ODYSSEY", new Vector2(150, 290), itemFont);
+            homeInfinity.AddTextElement("INFINITY", new Vector2(415, 290), itemFont);
+            homeCrew.AddTextElement("ULTIMATE CREW", new Vector2(640, 290), itemFont);
+            homeProduct.AddTextElement("PRODUCT OF THE WEEK", new Vector2(640, 440), itemFont);
+
+            playInfinity = new UIElement(spriteSheet, new Vector2(100, 275), new Rectangle(536, 233, 454, 128), mp);
+            playOdyssey = new UIElement(spriteSheet, new Vector2(100, 410), new Rectangle(535, 101, 454, 128), mp);
+            playCrew = new UIElement(spriteSheet, new Vector2(630, 275), new Rectangle(536, 233, 454, 128), mp);
+            playTraining = new UIElement(spriteSheet, new Vector2(630, 410), new Rectangle(536, 233, 454, 128), mp);
         }
 
         public void Refresh()
@@ -197,6 +220,12 @@ namespace SpaceGame
 
         int updateHome()
         {
+            if (homeInfinity.IsClicked())
+                return 1;
+
+            if (homeCrew.IsClicked())
+                return 3;
+
             if (inputManager.InputRightPressed())
             {
                 if (currentSelection < 2)
@@ -241,6 +270,12 @@ namespace SpaceGame
 
         int updatePlay()
         {
+            if (playInfinity.IsClicked())
+                return 1;
+
+            if (playCrew.IsClicked())
+                return 3;
+
             if (inputManager.InputRightPressed())
             {
                 if (currentSelection < 2)
@@ -288,7 +323,7 @@ namespace SpaceGame
 
         void drawStatBar(SpriteBatch sb)
         {
-            sb.Draw(spriteSheet, new Vector2(859, 58), new Rectangle(206, 13, 327, 26), Color.White);
+            sb.Draw(spriteSheet, new Vector2(859, 58), new Rectangle(206, 13, 300, 26), Color.White);
             sb.DrawString(tabFont, "LVL: " + playerLevel, new Vector2(890, 62), Color.Black);
             sb.DrawString(tabFont, playerExp + "/" + expToNextLevel, new Vector2(990, 62), Color.Black);
             sb.DrawString(tabFont, "" + money, new Vector2(1075, 62), Color.Black);
@@ -308,15 +343,10 @@ namespace SpaceGame
             sb.Draw(spriteSheet, new Vector2(95, 221), new Rectangle(9, 7, 149, 35), Color.White);
             sb.DrawString(tabFont, "HOME", new Vector2(150, 225), Color.Purple);
 
-            sb.Draw(spriteSheet, new Vector2(95, 275), new Rectangle(10, 98, 253, 352), Color.White);
-            sb.DrawString(itemFont, "THE ODYSSEY", new Vector2(150, 290), Color.White);
-            sb.Draw(spriteSheet, new Vector2(360, 275), new Rectangle(268, 98, 253, 352), Color.White);
-            sb.DrawString(itemFont, "INFINITY", new Vector2(415, 290), Color.White);
-
-            sb.Draw(spriteSheet, new Vector2(630, 275), new Rectangle(536, 233, 454, 128), Color.White);
-            sb.DrawString(itemFont, "ULTIMATE CREW", new Vector2(640, 290), Color.White);
-            sb.Draw(spriteSheet, new Vector2(630, 420), new Rectangle(14, 462, 456, 215), Color.White);
-            sb.DrawString(itemFont, "PRODUCT OF THE WEEK", new Vector2(640, 440), Color.White);
+            homeOdyssey.Draw(sb);
+            homeInfinity.Draw(sb);
+            homeCrew.Draw(sb);
+            homeProduct.Draw(sb);
 
             sb.Draw(spriteSheet, new Vector2(850, 470), new Rectangle(266, 701, 91, 126), Color.White);
 
@@ -336,14 +366,14 @@ namespace SpaceGame
             sb.Draw(spriteSheet, new Vector2(220, 221), new Rectangle(9, 7, 149, 35), Color.White);
             sb.DrawString(tabFont, "PLAY", new Vector2(275, 225), Color.Purple);
 
-            sb.Draw(spriteSheet, new Vector2(100, 275), new Rectangle(536, 233, 454, 128), Color.White);
+            playInfinity.Draw(sb);
             sb.DrawString(itemFont, "INFINITY", new Vector2(400, 375), Color.White);
-            sb.Draw(spriteSheet, new Vector2(100, 410), new Rectangle(535, 101, 454, 128), Color.White);
+            playOdyssey.Draw(sb);
             sb.DrawString(itemFont, "THE ODYSSEY", new Vector2(400, 510), Color.White);
 
-            sb.Draw(spriteSheet, new Vector2(630, 275), new Rectangle(536, 233, 454, 128), Color.White);
+            playCrew.Draw(sb);
             sb.DrawString(itemFont, "ULTIMATE CREW", new Vector2(900, 375), Color.White);
-            sb.Draw(spriteSheet, new Vector2(630, 410), new Rectangle(536, 233, 454, 128), Color.White);
+            playTraining.Draw(sb);
             sb.DrawString(itemFont, "TRAINING", new Vector2(930, 510), Color.White);
 
             sb.Draw(spriteSheet, new Vector2(100, 640), new Rectangle(585, 45, 32, 32), Color.White);
