@@ -46,6 +46,11 @@ namespace SpaceGame
         UIElement playCrew;
         UIElement playTraining;
 
+        UIElement tabHome;
+        UIElement tabPlay;
+        UIElement tabShop;
+        UIElement tabCustomise;
+
         public MainMenu(ContentManager cm, InputManager im, SaveData sd, MousePointer mp)
         {
             inputManager = im;
@@ -79,6 +84,14 @@ namespace SpaceGame
             playOdyssey = new UIElement(spriteSheet, new Vector2(100, 410), new Rectangle(535, 101, 454, 128), mp);
             playCrew = new UIElement(spriteSheet, new Vector2(630, 275), new Rectangle(536, 233, 454, 128), mp);
             playTraining = new UIElement(spriteSheet, new Vector2(630, 410), new Rectangle(536, 233, 454, 128), mp);
+
+            playInfinity.AddTextElement(new TextElement("INFINITY", new Vector2(400, 375), itemFont));
+            playOdyssey.AddTextElement(new TextElement("THE ODYSSEY", new Vector2(400, 510), itemFont));
+            playCrew.AddTextElement(new TextElement("ULTIMATE CREW", new Vector2(900, 375), itemFont));
+            playTraining.AddTextElement(new TextElement("TRAINING", new Vector2(900, 510), itemFont));
+
+            tabHome = new UIElement(spriteSheet, new Vector2(95, 221), new Rectangle(0, 0, 0, 0), new Rectangle(9, 7, 149, 35), mp);
+            tabHome.AddTextElement(new TextElement("HOME", new Vector2(150, 225), tabFont, Color.Purple));
         }
 
         public void Refresh()
@@ -118,6 +131,8 @@ namespace SpaceGame
         public int Update()
         {
             int returnValue = 0;
+
+            tabHome.Update();
 
             if (!quitCheck && !leveledUp)
             {
@@ -265,6 +280,11 @@ namespace SpaceGame
                     return 4;
             }
 
+            homeOdyssey.Update();
+            homeInfinity.Update();
+            homeCrew.Update();
+            homeProduct.Update();
+
             return 0;
         }
 
@@ -318,6 +338,11 @@ namespace SpaceGame
                     return 5;
             }
 
+            playOdyssey.Update();
+            playInfinity.Update();
+            playCrew.Update();
+            playTraining.Update();
+
             return 0;
         }
 
@@ -336,6 +361,8 @@ namespace SpaceGame
             sb.DrawString(tabFont, "PLAY", new Vector2(275, 225), Color.Black);
             sb.DrawString(tabFont, "SHOP", new Vector2(400, 225), Color.Black);
             sb.DrawString(tabFont, "CUSTOMISE", new Vector2(525, 225), Color.Black);
+
+            tabHome.Draw(sb);
         }
 
         void drawHome(SpriteBatch sb)
@@ -367,14 +394,9 @@ namespace SpaceGame
             sb.DrawString(tabFont, "PLAY", new Vector2(275, 225), Color.Purple);
 
             playInfinity.Draw(sb);
-            sb.DrawString(itemFont, "INFINITY", new Vector2(400, 375), Color.White);
             playOdyssey.Draw(sb);
-            sb.DrawString(itemFont, "THE ODYSSEY", new Vector2(400, 510), Color.White);
-
             playCrew.Draw(sb);
-            sb.DrawString(itemFont, "ULTIMATE CREW", new Vector2(900, 375), Color.White);
             playTraining.Draw(sb);
-            sb.DrawString(itemFont, "TRAINING", new Vector2(930, 510), Color.White);
 
             sb.Draw(spriteSheet, new Vector2(100, 640), new Rectangle(585, 45, 32, 32), Color.White);
             string drawSelected = "";

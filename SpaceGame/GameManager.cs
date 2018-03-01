@@ -31,7 +31,7 @@ namespace SpaceGame
             inputManager = new InputManager();
             saveData = SaveData.Load();
 
-            currentMode = Modes.Splash;
+            currentMode = Modes.Menu;
 
             pointer = new MousePointer(contentManager, inputManager);
 

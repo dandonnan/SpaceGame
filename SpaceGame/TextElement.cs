@@ -13,17 +13,27 @@ namespace SpaceGame
         Vector2 position;
         string text;
         SpriteFont font;
+        Color colour;
 
         public TextElement(string str, Vector2 pos, SpriteFont fnt)
         {
             position = pos;
             text = str;
             font = fnt;
+            colour = Color.White;
+        }
+
+        public TextElement(string str, Vector2 pos, SpriteFont fnt, Color clr)
+        {
+            position = pos;
+            text = str;
+            font = fnt;
+            colour = clr;
         }
 
         public void Draw(SpriteBatch sb)
         {
-            sb.DrawString(font, text, position, Color.White);
+            sb.DrawString(font, text, position, colour);
         }
     }
 }

@@ -10,20 +10,50 @@ namespace SpaceGame
 {
     public class UIElement : GameObject
     {
-        Rectangle textureOffset;
+        enum States { NotSelected, Selected };
+        States currentState;
+
+        Rectangle textureOffsetNotSel;
+        Rectangle textureOffsetSel;
         MousePointer mouse;
+
+        bool differingTextures;
 
         List<TextElement> textElements;
 
         public UIElement(Texture2D tex, Vector2 pos, Rectangle texOffset, MousePointer mp)
         {
+            currentState = States.NotSelected;
+
             texture = tex;
             position = pos;
             mouse = mp;
-            textureOffset = texOffset;
+            textureOffsetNotSel = texOffset;
 
             width = texOffset.Width;
             height = texOffset.Height;
+
+            differingTextures = false;
+
+            textElements = new List<TextElement>();
+
+            updateCollision();
+        }
+
+        public UIElement(Texture2D tex, Vector2 pos, Rectangle texOffsetNS, Rectangle texOffsetS, MousePointer mp)
+        {
+            currentState = States.NotSelected;
+
+            texture = tex;
+            position = pos;
+            mouse = mp;
+            textureOffsetNotSel = texOffsetNS;
+            textureOffsetSel = texOffsetS;
+
+            width = texOffsetNS.Width;
+            height = texOffsetNS.Height;
+
+            differingTextures = true;
 
             textElements = new List<TextElement>();
 
@@ -40,11 +70,38 @@ namespace SpaceGame
             textElements.Add(new TextElement(text, pos, font));
         }
 
+        public void SetSelected() { currentState = States.Selected; }
+        public void SetDeslected() { currentState = States.NotSelected; }
+
+        public void SetSelected(bool sel)
+        {
+            if (sel)
+                currentState = States.Selected;
+            else
+                currentState = States.NotSelected;
+        }
+
+        public bool IsSelected()
+        {
+            if (currentState == States.Selected)
+                return true;
+
+            return false;
+        }
+
+        public bool IsIntersected()
+        {
+            if (collision.Intersects(new Rectangle((int)mouse.GetX(), (int)mouse.GetY(), 1, 1)))
+                return true;
+
+            return false;
+        }
+
         public bool IsClicked()
         {
             if (mouse.Clicked())
             {
-                if (collision.Intersects(new Rectangle((int)mouse.GetX(), (int)mouse.GetY(), 1, 1)))
+                if (IsIntersected())
                     return true;
             }
 
@@ -53,16 +110,50 @@ namespace SpaceGame
 
         public override void Update()
         {
+            switch (currentState)
+            {
+                case States.NotSelected:
+                    if (IsIntersected())
+                        currentState = States.Selected;
+                    break;
+
+                case States.Selected:
+                    if (!IsIntersected())
+                        currentState = States.NotSelected;
+                    break;
+            }
         }
 
         public override void Draw(SpriteBatch sb)
         {
-            sb.Draw(texture, position, textureOffset, Color.White);
-
-            if (textElements.Count > 0)
+            switch (currentState)
             {
-                foreach (TextElement t in textElements)
-                    t.Draw(sb);
+                case States.NotSelected:
+                    if (texture != null)
+                        sb.Draw(texture, position, textureOffsetNotSel, Color.White);
+
+                    if (textElements.Count > 0)
+                    {
+                        foreach (TextElement t in textElements)
+                            t.Draw(sb);
+                    }
+                    break;
+
+                case States.Selected:
+                    if (texture != null)
+                    {
+                        if (differingTextures)
+                            sb.Draw(texture, position, textureOffsetSel, Color.White);
+                        else
+                            sb.Draw(texture, position, textureOffsetNotSel, Color.White);
+                    }
+
+                    if (textElements.Count > 0)
+                    {
+                        foreach (TextElement t in textElements)
+                            t.Draw(sb);
+                    }
+                    break;
             }
         }
     }
