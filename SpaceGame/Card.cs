@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace SpaceGame
 {
+    [Serializable()]
     public class Card
     {
         public enum CardTypes { Crew, Ship, Part }

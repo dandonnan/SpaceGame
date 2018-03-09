@@ -56,7 +56,7 @@ namespace SpaceGame
             inputManager = im;
             saveData = sd;
 
-            shop = new Shop(sd);
+            shop = new Shop(cm, im, sd, mp);
 
             spriteSheet = cm.Load<Texture2D>("menu");
             tabFont = cm.Load<SpriteFont>("scorefont");
@@ -112,6 +112,7 @@ namespace SpaceGame
 
                     saveData.SetPlayerLevel(playerLevel);
                     saveData.SetPlayerExp(playerExp);
+                    saveData.AddUnopenedBox();
 
                     leveledUp = true;
 
@@ -126,6 +127,8 @@ namespace SpaceGame
 
                 saveData.Save();
             }
+
+            shop.Refresh(); 
         }
 
         public int Update()
@@ -147,13 +150,20 @@ namespace SpaceGame
                         break;
 
                     case Tabs.Shop:
-                        shop.Update();
+                        returnValue = shop.Update();
 
-                        if (inputManager.InputLeftPressed())
+                        if (returnValue == 1)
+                        {
+                            returnValue = 0;
                             currentTab = Tabs.Play;
+                        }
 
-                        if (inputManager.InputRightPressed())
+                        if (returnValue == 2)
+                        {
+                            returnValue = 0;
                             currentTab = Tabs.Customise;
+                        }
+
                         break;
 
                     case Tabs.Customise:

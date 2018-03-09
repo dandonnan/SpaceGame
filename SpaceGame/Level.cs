@@ -35,6 +35,8 @@ namespace SpaceGame
         InputManager inputManager;
         SaveData saveData;
 
+        PauseMenu pauseMenu;
+
         public Level(ContentManager cm, InputManager im, SaveData sd)
         {
             contentManager = cm;
@@ -44,6 +46,8 @@ namespace SpaceGame
 
             font = cm.Load<SpriteFont>("scorefont");
             extraAssets = cm.Load<Texture2D>("menu");
+
+            pauseMenu = new PauseMenu(cm, im, sd);
 
             reset();
         }
@@ -73,7 +77,10 @@ namespace SpaceGame
                     break;
 
                 case States.Paused:
-                    updatePaused();
+                    val = pauseMenu.Update();
+
+                    if (val == 1)
+                        currentState = States.Playing;
                     break;
 
                 case States.GameOver:
@@ -195,9 +202,9 @@ namespace SpaceGame
             if (ship.HasFired())
             {
                 if (ship.GetFrame() != 2)
-                    bolts.Add(new Bolt(contentManager, new Vector2(ship.GetPosition().X + 32, ship.GetPosition().Y + 48), Color.Green, 5, 400));
+                    bolts.Add(new Bolt(contentManager, new Vector2(ship.GetPosition().X + 32, ship.GetPosition().Y + 48), saveData.GetBoltColour(), 5, 400));
                 else
-                    bolts.Add(new Bolt(contentManager, new Vector2(ship.GetPosition().X + 32, ship.GetPosition().Y + 20), Color.Green, 5, 400));
+                    bolts.Add(new Bolt(contentManager, new Vector2(ship.GetPosition().X + 32, ship.GetPosition().Y + 20), saveData.GetBoltColour(), 5, 400));
             }
 
             if (bolts.Count > 0)
@@ -259,12 +266,6 @@ namespace SpaceGame
             starfield.Update();
         }
 
-        void updatePaused()
-        {
-            if (inputManager.InputPause())
-                currentState = States.Playing;
-        }
-
         int updateGameOver()
         {
             if (inputManager.InputAccept())
@@ -311,6 +312,8 @@ namespace SpaceGame
 
             drawPlaying(sb);
             sb.DrawString(font, "Paused", new Vector2(600, 300), Color.White);
+
+            pauseMenu.Draw(sb);
         }
 
         void drawGameOver(SpriteBatch sb)

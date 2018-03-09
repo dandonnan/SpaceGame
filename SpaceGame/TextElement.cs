@@ -31,6 +31,17 @@ namespace SpaceGame
             colour = clr;
         }
 
+        public void UpdateText(string str)
+        {
+            text = str;
+        }
+
+        public void UpdateText(string str, Vector2 pos)
+        {
+            text = str;
+            position = pos;
+        }
+
         public void Draw(SpriteBatch sb)
         {
             sb.DrawString(font, text, position, colour);

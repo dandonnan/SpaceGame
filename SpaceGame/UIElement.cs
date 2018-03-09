@@ -21,6 +21,8 @@ namespace SpaceGame
 
         List<TextElement> textElements;
 
+        // Need to position this relative to the TextElement rather than world space (although an option
+        // for world space might be useful too)
         public UIElement(Texture2D tex, Vector2 pos, Rectangle texOffset, MousePointer mp)
         {
             currentState = States.NotSelected;
@@ -68,6 +70,16 @@ namespace SpaceGame
         public void AddTextElement(string text, Vector2 pos, SpriteFont font)
         {
             textElements.Add(new TextElement(text, pos, font));
+        }
+
+        public void UpdateTextElement(int id, string text)
+        {
+            textElements[id].UpdateText(text);
+        }
+
+        public void UpdateTextElement(int id, string text, Vector2 pos)
+        {
+            textElements[id].UpdateText(text, pos);
         }
 
         public void SetSelected() { currentState = States.Selected; }
