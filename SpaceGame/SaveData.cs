@@ -178,8 +178,7 @@ namespace SpaceGame
         }
 
         /// <summary>
-        /// Writes data out to a text file (extension: .sav)
-        /// * Needs to output to a binary file *
+        /// Writes data out to a binary file (extension: .sav)
         /// </summary>
         public void Save()
         {
@@ -200,10 +199,9 @@ namespace SpaceGame
         }
 
         /// <summary>
-        /// Reads data in from a text file (extension: .sav)
-        ///  * Needs to input from a binary file *
+        /// Reads data in from a binary file (extension: .sav)
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Returns a SaveData object that reads from the file</returns>
         public static SaveData Load()
         {
             if (File.Exists("data.sav"))
@@ -229,6 +227,17 @@ namespace SpaceGame
             }
 
             return new SaveData();
+        }
+
+        /// <summary>
+        /// Deletes the save data
+        /// </summary>
+        public static void Delete()
+        {
+            if (File.Exists("data.sav"))
+            {
+                File.Delete("data.sav");
+            }
         }
     }
 }

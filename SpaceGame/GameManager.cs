@@ -10,6 +10,7 @@ namespace SpaceGame
 {
     class GameManager
     {
+        // All the modes the game can be in (Splash screen, Menu screen, Ultimate Crew, Main game)
         enum Modes { Splash, Menu, Crew, Game }
         Modes currentMode;
 
@@ -25,13 +26,17 @@ namespace SpaceGame
 
         SaveData saveData;
 
+        /// <summary>
+        /// Create a GameManager object
+        /// </summary>
+        /// <param name="cm">The ContentManager that will be used to load content</param>
         public GameManager(ContentManager cm)
         {
             contentManager = cm;
             inputManager = new InputManager();
             saveData = SaveData.Load();
 
-            currentMode = Modes.Menu;
+            currentMode = Modes.Splash;
 
             pointer = new MousePointer(contentManager, inputManager);
 
@@ -41,10 +46,14 @@ namespace SpaceGame
             level = new Level(contentManager, inputManager, saveData);
         }
 
+        /// <summary>
+        /// The main update loop for all game logic
+        /// </summary>
+        /// <returns>Will close the game if 1</returns>
         public int Update()
         {
             inputManager.Update();
-            pointer.Update();
+            //pointer.Update();
 
             int val = 0;
 
@@ -92,6 +101,10 @@ namespace SpaceGame
             return 0;
         }
 
+        /// <summary>
+        /// The main render code for the game
+        /// </summary>
+        /// <param name="sb">Name of the SpriteBatch to render with</param>
         public void Draw(SpriteBatch sb)
         {
             switch (currentMode)
@@ -113,7 +126,7 @@ namespace SpaceGame
                     break;
             }
 
-            pointer.Draw(sb);
+            //pointer.Draw(sb);
         }
     }
 }

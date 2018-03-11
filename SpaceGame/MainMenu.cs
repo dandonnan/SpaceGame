@@ -98,6 +98,8 @@ namespace SpaceGame
         {
             leveledUp = false;
 
+            saveData = SaveData.Load();
+
             playerLevel = saveData.GetPlayerLevel();
             playerExp = saveData.GetPlayerExp();
             expToNextLevel = saveData.GetExpToNextLevel();

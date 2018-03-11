@@ -51,8 +51,15 @@ namespace SpaceGame
             eaScale = 20f;
         }
 
+        /// <summary>
+        /// Checks if the animations / sounds are finished
+        /// </summary>
+        /// <returns>Returns true when everything is done</returns>
         public bool IsFinished() { return finished; }
 
+        /// <summary>
+        /// The main update loop
+        /// </summary>
         public void Update()
         {
             switch (currentMode)
@@ -111,6 +118,10 @@ namespace SpaceGame
             }
         }
 
+        /// <summary>
+        /// The main render loop
+        /// </summary>
+        /// <param name="sb"></param>
         public void Draw(SpriteBatch sb)
         {
             switch (currentMode)

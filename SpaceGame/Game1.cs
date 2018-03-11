@@ -12,6 +12,7 @@ namespace SpaceGame
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
+        // The GameManager will handle the game logic
         GameManager gameManager;
         
         public Game1()
@@ -30,6 +31,7 @@ namespace SpaceGame
         {
             // TODO: Add your initialization logic here
 
+            // Set the default resolution to 1280x720
             graphics.PreferredBackBufferWidth = 1280;
             graphics.PreferredBackBufferHeight = 720;
             graphics.ApplyChanges();

@@ -4,14 +4,14 @@
   <Platform>DesktopGL</Platform>
   <Config />
   <SourceFiles>
-    <File>C:/Users/ukddonnan/Documents/Visual Studio 2012/Projects/SpaceGame/trunk/SpaceGame/Content/bolt.png</File>
-    <File>C:/Users/ukddonnan/Documents/Visual Studio 2012/Projects/SpaceGame/trunk/SpaceGame/Content/ea.png</File>
-    <File>C:/Users/ukddonnan/Documents/Visual Studio 2012/Projects/SpaceGame/trunk/SpaceGame/Content/monster.png</File>
-    <File>C:/Users/ukddonnan/Documents/Visual Studio 2012/Projects/SpaceGame/trunk/SpaceGame/Content/ship.png</File>
-    <File>C:/Users/ukddonnan/Documents/Visual Studio 2012/Projects/SpaceGame/trunk/SpaceGame/Content/eaJingle.mp3</File>
-    <File>C:/Users/ukddonnan/Documents/Visual Studio 2012/Projects/SpaceGame/trunk/SpaceGame/Content/scorefont.spritefont</File>
-    <File>C:/Users/ukddonnan/Documents/Visual Studio 2012/Projects/SpaceGame/trunk/SpaceGame/Content/menuitem.spritefont</File>
-    <File>C:/Users/ukddonnan/Documents/Visual Studio 2012/Projects/SpaceGame/trunk/SpaceGame/Content/starfield.png</File>
-    <File>C:/Users/ukddonnan/Documents/Visual Studio 2012/Projects/SpaceGame/trunk/SpaceGame/Content/menu.png</File>
+    <File>C:/Users/Danny/Documents/Visual Studio 2013/Projects/SpaceGame/SpaceGame/SpaceGame/Content/bolt.png</File>
+    <File>C:/Users/Danny/Documents/Visual Studio 2013/Projects/SpaceGame/SpaceGame/SpaceGame/Content/ea.png</File>
+    <File>C:/Users/Danny/Documents/Visual Studio 2013/Projects/SpaceGame/SpaceGame/SpaceGame/Content/monster.png</File>
+    <File>C:/Users/Danny/Documents/Visual Studio 2013/Projects/SpaceGame/SpaceGame/SpaceGame/Content/ship.png</File>
+    <File>C:/Users/Danny/Documents/Visual Studio 2013/Projects/SpaceGame/SpaceGame/SpaceGame/Content/eaJingle.mp3</File>
+    <File>C:/Users/Danny/Documents/Visual Studio 2013/Projects/SpaceGame/SpaceGame/SpaceGame/Content/scorefont.spritefont</File>
+    <File>C:/Users/Danny/Documents/Visual Studio 2013/Projects/SpaceGame/SpaceGame/SpaceGame/Content/menuitem.spritefont</File>
+    <File>C:/Users/Danny/Documents/Visual Studio 2013/Projects/SpaceGame/SpaceGame/SpaceGame/Content/starfield.png</File>
+    <File>C:/Users/Danny/Documents/Visual Studio 2013/Projects/SpaceGame/SpaceGame/SpaceGame/Content/menu.png</File>
   </SourceFiles>
 </SourceFileCollection>

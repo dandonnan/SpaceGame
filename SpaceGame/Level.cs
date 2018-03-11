@@ -37,6 +37,11 @@ namespace SpaceGame
 
         PauseMenu pauseMenu;
 
+#if DEBUG
+        bool drawObjectCount;
+        bool drawStarCount;
+#endif
+
         public Level(ContentManager cm, InputManager im, SaveData sd)
         {
             contentManager = cm;
@@ -47,9 +52,14 @@ namespace SpaceGame
             font = cm.Load<SpriteFont>("scorefont");
             extraAssets = cm.Load<Texture2D>("menu");
 
-            pauseMenu = new PauseMenu(cm, im, sd);
+            pauseMenu = new PauseMenu(cm, im, sd, this);
 
             reset();
+
+#if DEBUG
+            drawObjectCount = false;
+            drawStarCount = false;
+#endif
         }
 
         void reset()
@@ -66,6 +76,42 @@ namespace SpaceGame
             sessionScore = 0;
         }
 
+        public void IncrementScore(int val)
+        {
+            score += val;
+            currentScore += val;
+        }
+
+        public void DecrementScore(int val)
+        {
+            score -= val;
+            currentScore -= val;
+        }
+
+        public void SetScore(int val)
+        {
+            score = val;
+            currentScore = val;
+        }
+
+#if DEBUG
+        public void ToggleDebugObjectCount()
+        {
+            if (drawObjectCount)
+                drawObjectCount = false;
+            else
+                drawObjectCount = true;
+        }
+
+        public void ToggleDebugStarCount()
+        {
+            if (drawStarCount)
+                drawStarCount = false;
+            else
+                drawStarCount = true;
+        }
+#endif
+
         public int Update()
         {
             int val = 0;
@@ -81,6 +127,12 @@ namespace SpaceGame
 
                     if (val == 1)
                         currentState = States.Playing;
+
+                    if (val == 2)
+                    {
+                        reset();
+                        return 1;
+                    }
                     break;
 
                 case States.GameOver:
@@ -303,15 +355,19 @@ namespace SpaceGame
                 b.Draw(sb);
             }
 
-            sb.DrawString(font, "Stars: " + starfield.GetStarfieldObjectCount(), new Vector2(10, 650), Color.White);
+#if DEBUG
+            if (drawObjectCount)
+                sb.DrawString(font, "Monsters: " + monsters.Count() + ", Bolts: " + bolts.Count(), new Vector2(10, 630), Color.White);
+
+            if (drawStarCount)
+                sb.DrawString(font, "Stars: " + starfield.GetStarfieldObjectCount(), new Vector2(10, 650), Color.White);
+#endif
         }
 
         void drawPaused(SpriteBatch sb)
         {
             starfield.Draw(sb);
-
             drawPlaying(sb);
-            sb.DrawString(font, "Paused", new Vector2(600, 300), Color.White);
 
             pauseMenu.Draw(sb);
         }
