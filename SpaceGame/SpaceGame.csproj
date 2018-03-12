@@ -45,6 +45,7 @@
     <Compile Include="AudioManager.cs" />
     <Compile Include="Bolt.cs" />
     <Compile Include="Card.cs" />
+    <Compile Include="CustomiseMenu.cs" />
     <Compile Include="DebugMenu.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="GameManager.cs" />
@@ -65,6 +66,7 @@
     <Compile Include="StarfieldManager.cs" />
     <Compile Include="StarfieldObject.cs" />
     <Compile Include="TextElement.cs" />
+    <Compile Include="TitleScreen.cs" />
     <Compile Include="UCMenu.cs" />
     <Compile Include="UIElement.cs" />
     <Compile Include="UltimateCrew.cs" />

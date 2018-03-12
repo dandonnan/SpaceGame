@@ -8,16 +8,18 @@ using System.Threading.Tasks;
 
 namespace SpaceGame
 {
-    class GameManager
+    public class GameManager
     {
-        // All the modes the game can be in (Splash screen, Menu screen, Ultimate Crew, Main game)
-        enum Modes { Splash, Menu, Crew, Game }
+        // All the modes the game can be in (Splash screen, Title screen, Menu screen, Ultimate Crew, Main game)
+        enum Modes { Splash, Title, Menu, Crew, Game }
         Modes currentMode;
 
         ContentManager contentManager;
         InputManager inputManager;
+        AudioManager audioManager;
 
         SplashScreen splashScreen;
+        TitleScreen titleScreen;
         MainMenu mainMenu;
         UCMenu ucMenu;
         Level level;
@@ -34,13 +36,15 @@ namespace SpaceGame
         {
             contentManager = cm;
             inputManager = new InputManager();
+            audioManager = new AudioManager();
             saveData = SaveData.Load();
 
-            currentMode = Modes.Splash;
+            currentMode = Modes.Menu;
 
             pointer = new MousePointer(contentManager, inputManager);
 
-            splashScreen = new SplashScreen(contentManager);
+            splashScreen = new SplashScreen(contentManager, audioManager);
+            titleScreen = new TitleScreen(contentManager, inputManager);
             mainMenu = new MainMenu(contentManager, inputManager, saveData, pointer);
             ucMenu = new UCMenu(contentManager, inputManager, saveData);
             level = new Level(contentManager, inputManager, saveData);
@@ -63,6 +67,13 @@ namespace SpaceGame
                     splashScreen.Update();
 
                     if (splashScreen.IsFinished())
+                        currentMode = Modes.Title;
+                    break;
+
+                case Modes.Title:
+                    val = titleScreen.Update();
+
+                    if (val == 1)
                         currentMode = Modes.Menu;
                     break;
 
@@ -111,6 +122,10 @@ namespace SpaceGame
             {
                 case Modes.Splash:
                     splashScreen.Draw(sb);
+                    break;
+
+                case Modes.Title:
+                    titleScreen.Draw(sb);
                     break;
 
                 case Modes.Menu:

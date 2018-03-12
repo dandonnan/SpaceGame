@@ -28,6 +28,7 @@ namespace SpaceGame
         float eaAlpha = 0;
 
         Song eaSong;
+        AudioManager audioManager;
 
         float eaScale;
 
@@ -35,7 +36,7 @@ namespace SpaceGame
 
         bool finished = false;
 
-        public SplashScreen(ContentManager cm)
+        public SplashScreen(ContentManager cm, AudioManager am)
         {
             currentMode = Modes.EA;
 
@@ -47,6 +48,8 @@ namespace SpaceGame
             // Need to create an AudioManager, and probably make this a sound effect
             // rather than a song (songs are usually background music)
             eaSong = cm.Load<Song>("eaJingle");
+
+            audioManager = am;
 
             eaScale = 20f;
         }
@@ -68,8 +71,8 @@ namespace SpaceGame
                     switch (eaMode)
                     {
                         case EA_Modes.E:
-                            if (MediaPlayer.State != MediaState.Playing)
-                                MediaPlayer.Play(eaSong);
+                            if (!audioManager.IsBGMPlaying())
+                                audioManager.PlayBGM(eaSong);
 
                             eaScale -= 0.5f;
 
@@ -101,7 +104,7 @@ namespace SpaceGame
                             if (eaAlpha < 1)
                                 eaAlpha += 0.05f;
 
-                            if (MediaPlayer.State == MediaState.Stopped)
+                            if (audioManager.IsBGMStopped())
                             {
                                 waitTime--;
 

@@ -34,11 +34,14 @@ namespace SpaceGame
             playerExp = 0;
             money = 0;
 
+            shipID = 0;
             boltColour = "Green";
 
             boxesToOpen = 0;
 
+            ships = new bool[10];
             colours = new bool[10];  // Green, Red, Blue, Yellow, White, Orange, Purple, Pink (Peach), Silver, Gold
+            bolts = new bool[10];
 
             deck = new List<Card>();
 

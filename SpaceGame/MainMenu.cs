@@ -24,6 +24,7 @@ namespace SpaceGame
         SaveData saveData;
 
         Shop shop;
+        CustomiseMenu customise;
 
         int currentSelection;
 
@@ -57,6 +58,7 @@ namespace SpaceGame
             saveData = sd;
 
             shop = new Shop(cm, im, sd, mp);
+            customise = new CustomiseMenu(cm, im, sd, mp);
 
             spriteSheet = cm.Load<Texture2D>("menu");
             tabFont = cm.Load<SpriteFont>("scorefont");
@@ -169,8 +171,13 @@ namespace SpaceGame
                         break;
 
                     case Tabs.Customise:
-                        if (inputManager.InputLeftPressed())
+                        returnValue = customise.Update();
+
+                        if (returnValue == 1)
+                        {
+                            returnValue = 0;
                             currentTab = Tabs.Shop;
+                        }
                         break;
                 }
 
@@ -439,6 +446,8 @@ namespace SpaceGame
             sb.Draw(spriteSheet, new Vector2(100, 640), new Rectangle(585, 45, 32, 32), Color.White);
             //string drawSelected = "";
             //sb.DrawString(tabFont, "Select " + drawSelected, new Vector2(140, 647), Color.White);
+
+            customise.Draw(sb);
         }
     }
 }
